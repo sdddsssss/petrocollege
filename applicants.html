@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Абитуриентам — Петровский колледж</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --cyan: #06b6d4;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(124, 58, 237, 0.2);
+            --card-bg: rgba(22, 33, 62, 0.6);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+        }
+
+        /* Верхняя панель с контактами */
+        .top-bar {
+            background: rgba(26, 26, 46, 0.98);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 0;
+            font-size: 0.9rem;
+        }
+
+        .top-bar .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .top-bar-left {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .top-bar a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .top-bar a:hover {
+            color: var(--accent-light);
+        }
+
+        .top-bar i.fa-phone,
+        .top-bar i.fa-envelope,
+        .top-bar i.fa-clock {
+            color: var(--accent);
+        }
+
+        .top-bar-social a {
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .nav-logo i { color: var(--accent); font-size: 2rem; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        /* Гамбургер-меню */
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 2rem 60px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 100px;
+        }
+
+        .section-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .section-block:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
+        }
+
+        .section-number {
+            display: inline-block;
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-block h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .section-block h3 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--accent-light);
+        }
+
+        .section-block p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .doc-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .doc-list li {
+            padding: 1rem 0 1rem 2.5rem;
+            position: relative;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+        }
+
+        .doc-list li:last-child {
+            border-bottom: none;
+        }
+
+        .doc-list li::before {
+            content: '\f15b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 400;
+            position: absolute;
+            left: 0;
+            top: 1rem;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .doc-list li a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 44px;
+            padding: 0.5rem 0;
+        }
+
+        .doc-list li a:hover {
+            color: var(--accent-light);
+        }
+
+        .doc-list li a .download-icon {
+            color: var(--cyan);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .doc-list li a:hover .download-icon {
+            transform: translateX(5px);
+        }
+
+        .alert-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .alert-box i {
+            color: #f59e0b;
+            margin-right: 0.75rem;
+        }
+
+        .alert-box.danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: #ef4444;
+        }
+
+        .alert-box.danger i {
+            color: #ef4444;
+        }
+
+        .alert-box.success {
+            background: rgba(34, 197, 94, 0.1);
+            border-left-color: #22c55e;
+        }
+
+        .alert-box.success i {
+            color: #22c55e;
+        }
+
+        .alert-box ul {
+            margin-top: 0.75rem;
+            padding-left: 1.5rem;
+        }
+
+        .alert-box ul li {
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-item {
+            background: rgba(124, 58, 237, 0.1);
+            padding: 1.5rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        .info-item h4 {
+            color: var(--accent-light);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .price-table th,
+        .price-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .price-table th {
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .price-table td {
+            color: var(--text-muted);
+        }
+
+        .price-table tr:hover td {
+            background: rgba(124, 58, 237, 0.05);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--border);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--cyan);
+            min-width: 150px;
+        }
+
+        .timeline-content h4 {
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Быстрые ссылки */
+        .quick-links-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .quick-links-section h3 {
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            background: rgba(124, 58, 237, 0.1);
+            border-left: 3px solid var(--accent);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-height: 44px;
+        }
+
+        .quick-link:hover {
+            background: rgba(124, 58, 237, 0.2);
+            border-left-color: var(--cyan);
+            transform: translateX(5px);
+            color: var(--text);
+        }
+
+        .quick-link i {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        .contact-footer {
+            background: var(--secondary);
+            border-top: 1px solid var(--border);
+            padding: 60px 2rem 30px;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-section i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2rem; }
+            .section-block { padding: 1.5rem; }
+            .timeline-item { flex-direction: column; gap: 0.5rem; }
+            
+            /* Показываем гамбургер-меню на мобильных */
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            /* Скрываем навигацию по умолчанию */
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--secondary);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid var(--border);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+            
+            /* Показываем навигацию когда активна */
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                width: 100%;
+            }
+            
+            .nav-links a {
+                width: 100%;
+                padding: 0.75rem 0;
+            }
+            
+            /* Верхняя панель */
+            .top-bar .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .top-bar-left {
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+            
+            /* Увеличиваем кнопки для пальцев */
+            button, a, .btn, .quick-link, .doc-list li a {
+                min-height: 44px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(124, 58, 237, 0.3);
+            }
+            
+            .quick-links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Верхняя панель с иконками -->
+    <div class="top-bar">
+        <div class="nav-container">
+            <div class="top-bar-left">
+                <a href="tel:88122442020">
+                    <i class="fas fa-phone"></i>
+                    <span>8 (812) 244-20-20</span>
+                </a>
+                <a href="mailto:director@petrocollege.ru">
+                    <i class="fas fa-envelope"></i>
+                    <span>director@petrocollege.ru</span>
+                </a>
+                <div style="color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-clock"></i>
+                    <span>Пн-Пт: 10:00 - 15:00</span>
+                </div>
+            </div>
+            
+            <div class="top-bar-right top-bar-social">
+                <a href="https://vk.com/petrocollege_spb" target="_blank" title="ВКонтакте">
+                    <i class="fab fa-vk"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/UCbCgD2jMRWo3mC8QXcbJLuw" target="_blank" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://telegram.org" target="_blank" title="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-microchip"></i>
+                <span>ОИТ Петровский колледж</span>
+            </a>
+            
+            <!-- Гамбургер-меню кнопка -->
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Открыть меню">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="index.html#specialties">Специальности</a></li>
+                <li><a href="teachers.html">Преподаватели</a></li>
+                <li><a href="achievements.html">Достижения</a></li>
+                <li><a href="applicants.html" class="active">Абитуриентам</a></li>
+                <li><a href="accessibility.html">Настройки</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="index.html#contacts">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1><i class="fas fa-graduation-cap"></i> Абитуриентам</h1>
+        <p>Вся необходимая информация для поступления в Петровский колледж</p>
+    </header>
+
+    <div class="container">
+        <!-- Документы для поступления -->
+        <div class="section-block">
+            <span class="section-number">01</span>
+            <h2>Документы, необходимые при поступлении</h2>
+            
+            <div class="alert-box danger">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Важно!</strong> Родитель или законный представитель ОБЯЗАТЕЛЬНО сопровождает несовершеннолетнего абитуриента при подаче документов
+            </div>
+
+            <h3>На очную форму обучения</h3>
+            <ul class="doc-list">
+                <li><strong>1. Документ, удостоверяющий личность (паспорт)</strong> + копия (2,3 страница + страница с действующей регистрацией)</li>
+                <li><strong>2. Документ об образовании</strong> (предоставляете оригинал аттестата работнику приемной комиссии или сдаёте нотариально заверенную копию)</li>
+                <li><strong>3. 4 фото</strong> (размер 3×4 см., матовые)</li>
+                <li><strong>4. Медицинская справка СЭМД-196</strong> за текущий год (проверьте наличие печати и заключение о состоянии здоровья)</li>
+                <li><strong>5. СНИЛС</strong> (зеленая пластиковая карточка)</li>
+                <li><strong>6. Для льготных категорий</strong> – оригинал документа, подтверждающий льготную категорию</li>
+                <li><strong>7. Для специальностей: «Туризм и гостеприимство», «Технологии индустрии красоты»</strong> обязательно предоставляется справка от дерматолога</li>
+            </ul>
+
+            <div class="alert-box">
+                <i class="fas fa-info-circle"></i>
+                <strong>При подаче документов Почтой России</strong> к вышеперечисленным документам приложить заполненные Заявление и Согласия: на обработку персональных данных и на распространение персональных данных.<br>
+                <strong>Почтовый адрес:</strong> 198095, СПб, Балтийская ул., д.35 — приемная комиссия
+            </div>
+
+            <h3>На заочную форму обучения</h3>
+            <ul class="doc-list">
+                <li><strong>1. Документ, удостоверяющий личность (паспорт)</strong> + копия (2,3 страница + страница с действующей регистрацией)</li>
+                <li><strong>2. Документ об образовании</strong> (оригинал)</li>
+                <li><strong>3. 4 фото</strong> (размер 3×4 см, матовые)</li>
+                <li><strong>4. СНИЛС</strong> (зеленая пластиковая карточка)</li>
+                <li><strong>5. Справка с официального места трудоустройства</strong></li>
+                <li><strong>6. Справка из туберкулезного диспансера</strong> (справка должна быть текущего года)</li>
+            </ul>
+
+            <div class="alert-box danger">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Для заключения договора на коммерческое обучение</strong> необходимо присутствие родителя (законного представителя) с паспортом
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <a href="документы для поступления.pdf" download class="quick-link" style="display: inline-flex;">
+                    <i class="fas fa-file-pdf" style="color: #ef4444;"></i>
+                    <span>Скачать полный список документов (PDF)</span>
+                    <i class="fas fa-download" style="margin-left: auto;"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Медицинский осмотр -->
+        <div class="section-block">
+            <span class="section-number">02</span>
+            <h2>Медицинский осмотр</h2>
+            
+            <p>При поступлении на обучение по специальностям, входящим в перечень специальностей, при приеме на обучение по которым поступающие проходят обязательные предварительные медицинские осмотры (обследования) в порядке, установленном при заключении трудового договора или служебного контракта по соответствующей должности или специальности (утвержденный постановлением Правительства Российской Федерации от 14.08.2013 № 697), поступающие проходят обязательные предварительные медицинские осмотры (обследования).</p>
+
+            <div class="alert-box danger">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Особые требования для специальностей:</strong>
+                <ul>
+                    <li><strong>43.02.17 «Технологии индустрии красоты»</strong> и <strong>43.02.16 «Туризм и гостеприимство»</strong> — дополнительно предоставляют справку от врача дерматолога</li>
+                    <li><strong>40.02.02 «Правоохранительная деятельность»</strong> — предоставляют оригинал или копию медицинского заключения, содержащего сведения о проведении медицинского осмотра в соответствии с перечнем врачей-специалистов, лабораторных и функциональных исследований, с пометкой <strong>«противопоказаний не выявлено»</strong></li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <a href="мед осмотр.pdf" download class="quick-link" style="display: inline-flex;">
+                    <i class="fas fa-file-pdf" style="color: #ef4444;"></i>
+                    <span>Скачать выписку из правил приема (PDF)</span>
+                    <i class="fas fa-download" style="margin-left: auto;"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Планы приема -->
+        <div class="section-block">
+            <span class="section-number">03</span>
+            <h2>Планы приема и сроки подачи документов</h2>
+            
+            <h3>План приема на очную форму обучения</h3>
+            <ul class="doc-list">
+                <li>
+                    <a href="специальности.pdf" download>
+                        <span>План приема на очную форму обучения (на базе 9 классов) <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="сроки подачи на основе 9.pdf" download>
+                        <span>Сроки подачи документов на базе 9 классов <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="на 11.pdf" download>
+                        <span>План приема на базе 11 классов <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <h3>План приема на заочную форму</h3>
+            <ul class="doc-list">
+                <li>
+                    <a href="заочная.pdf" download>
+                        <span>План приема на заочную форму обучения <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="сроки подачи.pdf" download>
+                        <span>Сроки подачи документов на заочную и очно-заочную формы <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <h3>Контрольные цифры приема</h3>
+            <ul class="doc-list">
+                <li>
+                    <a href="контрольные.pdf" download>
+                        <span>Контрольные цифры приема на 2026-2027 учебный год <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <h3>Сроки приема документов</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">20 июня 2026</div>
+                    <div class="timeline-content">
+                        <h4>Начало приема документов</h4>
+                        <p>Начало приема документов от абитуриентов</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">15 августа 2026</div>
+                    <div class="timeline-content">
+                        <h4>Окончание приема документов</h4>
+                        <p>Окончание приема документов (до 15:00 по московскому времени)</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">20 августа 2026</div>
+                    <div class="timeline-content">
+                        <h4>Издание приказа о зачислении</h4>
+                        <p>Издание приказа о зачислении лиц, поступающих на обучение</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box">
+                <i class="fas fa-clock"></i>
+                <strong>Важно!</strong> Документы принимаются до 15:00 по московскому времени 15 августа 2026 года. Необходимо представить оригинал документа об образовании.
+            </div>
+        </div>
+
+        <!-- Платные образовательные услуги -->
+        <div class="section-block">
+            <span class="section-number">04</span>
+            <h2>Платные образовательные услуги</h2>
+            
+            <ul class="doc-list">
+                <li>
+                    <a href="усллвия.pdf" download>
+                        <span>Условия приема на обучение по договору об оказании платных образовательных услуг <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="стоимость.pdf" download>
+                        <span>Стоимость платных образовательных услуг <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>Стоимость обучения</h4>
+                    <p style="font-size: 1.5rem; color: var(--accent-light); font-weight: 700;">2 950 руб./месяц</p>
+                </div>
+                <div class="info-item">
+                    <h4>Оплата</h4>
+                    <p>Ежемесячно или за семестр. Возможна рассрочка платежа.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Бланки -->
+        <div class="section-block">
+            <span class="section-number">05</span>
+            <h2>Бланки документов</h2>
+            <p>Заполните необходимые документы для подачи в приемную комиссию.</p>
+
+            <ul class="doc-list">
+                <li>
+                    <a href="бланк заявления.pdf" download>
+                        <span>Бланк заявления о приеме <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="бланк согласия на обработку.pdf" download>
+                        <span>Согласие на обработку персональных данных <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="бланк согласия работку.pdf" download>
+                        <span>Согласие на распространение персональных данных <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="лист приоритета.pdf" download>
+                        <span>Лист приоритета специальностей <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="положение.pdf" download>
+                        <span>Положение о листе приоритета специальностей <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="образец заявления.pdf" download>
+                        <span>Образец заполнения заявления <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="отзыв.pdf" download>
+                        <span>Бланк заявления об отзыве документов <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="alert-box success">
+                <i class="fas fa-check-circle"></i>
+                <strong>Доступно для скачивания:</strong> Заявление, Согласие на обработку персональных данных, Согласие на распространение персональных данных, Документы для поступления, Медицинский осмотр.
+            </div>
+        </div>
+
+        <!-- Вступительные испытания -->
+        <div class="section-block">
+            <span class="section-number">06</span>
+            <h2>Вступительные испытания</h2>
+
+            <p>Поступление в Петровский колледж осуществляется на основе конкурса аттестатов. Вступительные испытания проводятся только для отдельных специальностей.</p>
+
+            <ul class="doc-list">
+                <li>
+                    <a href="перечень.pdf" download>
+                        <span>Перечень вступительных испытаний <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="график.pdf" download>
+                        <span>График вступительных испытаний <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="особенности.pdf" download>
+                        <span>Особенности проведения вступительных испытаний для граждан с ОВЗ <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="правила.pdf" download>
+                        <span>Правила подачи и рассмотрения апелляции <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="alert-box">
+                <i class="fas fa-info-circle"></i>
+                <strong>Обратите внимание:</strong> Для большинства специальностей вступительные испытания не проводятся. Зачисление происходит по среднему баллу аттестата.
+            </div>
+        </div>
+
+        <!-- Дополнительные программы -->
+        <div class="section-block">
+            <span class="section-number">07</span>
+            <h2>Дополнительные образовательные программы</h2>
+            
+            <ul class="doc-list">
+                <li>
+                    <a href="перечени.pdf" download>
+                        <span>Перечень дополнительных образовательных программ для групп набора 2026-2027 <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="info-item" style="margin-top: 1.5rem;">
+                <h4>Стоимость</h4>
+                <p style="font-size: 1.5rem; color: var(--accent-light); font-weight: 700;">2 950 руб. в месяц</p>
+            </div>
+        </div>
+
+        <!-- Общежитие -->
+        <div class="section-block">
+            <span class="section-number">08</span>
+            <h2>Общежитие</h2>
+            
+            <ul class="doc-list">
+                <li>
+                    <a href="вакантные.pdf" download>
+                        <span>Количество вакантных мест в общежитии <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>Условия предоставления</h4>
+                    <p>Общежитие предоставляется иногородним студентам при наличии свободных мест</p>
+                </div>
+                <div class="info-item">
+                    <h4>Стоимость проживания</h4>
+                    <p>Уточняйте в студенческом отделе</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Целевое обучение -->
+        <div class="section-block">
+            <span class="section-number">09</span>
+            <h2>Целевое обучение</h2>
+            
+            <ul class="doc-list">
+                <li>
+                    <a href="памятка.pdf" download>
+                        <span>Памятка об организации целевого обучения <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="типовая.pdf" download>
+                        <span>Типовая форма целевого договора <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="alert-box">
+                <i class="fas fa-info-circle"></i>
+                <strong>Целевое обучение</strong> — это обучение по договору между абитуриентом и организацией-заказчиком, которая обязуется трудоустроить выпускника после окончания колледжа.
+            </div>
+        </div>
+
+        <!-- Статистика приема -->
+        <div class="section-block">
+            <h2>Статистика приема</h2>
+            
+            <h3>Динамика подачи документов</h3>
+            <ul class="doc-list">
+                <li>
+                    <a href="жинамика.pdf" download>
+                        <span>Динамика подачи документов (очное) <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <h3>Достоверность сведений</h3>
+            <ul class="doc-list">
+                <li>
+                    <a href="достоверность.pdf" download>
+                        <span>О достоверности сведений <i class="fas fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i></span>
+                        <i class="fas fa-download download-icon"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Быстрые ссылки -->
+        <div class="quick-links-section">
+            <h3><i class="fas fa-link"></i> Быстрые ссылки</h3>
+            <div class="quick-links-grid">
+                <a href="index.html" class="quick-link">
+                    <i class="fas fa-home"></i>
+                    <span>Главная страница</span>
+                </a>
+                <a href="applicants.html" class="quick-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Абитуриентам</span>
+                </a>
+                <a href="teachers.html" class="quick-link">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Преподаватели</span>
+                </a>
+                <a href="achievements.html" class="quick-link">
+                    <i class="fas fa-trophy"></i>
+                    <span>Достижения</span>
+                </a>
+                <a href="reviews.html" class="quick-link">
+                    <i class="fas fa-comments"></i>
+                    <span>Отзывы</span>
+                </a>
+                <a href="faq.html" class="quick-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Часто задаваемые вопросы</span>
+                </a>
+                <a href="index.html#specialties" class="quick-link">
+                    <i class="fas fa-list"></i>
+                    <span>Специальности</span>
+                </a>
+                <a href="index.html#contacts" class="quick-link">
+                    <i class="fas fa-address-book"></i>
+                    <span>Контакты</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="contact-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Приемная комиссия</h4>
+                <p><i class="fas fa-map-marker-alt"></i> ул. Курляндская, д. 39<br>Санкт-Петербург</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:88122442020">8 (812) 244-20-20</a></p>
+                <p><i class="fas fa-clock"></i> Прием: 10:00 - 15:00<br>Сб, Вс — выходной</p>
+            </div>
+            <div class="footer-section">
+                <h4>Заочная форма обучения</h4>
+                <p><i class="fas fa-phone"></i> <a href="tel:78126453559">+7 (812) 645-35-59</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Быстрые ссылки</h4>
+                <p><a href="teachers.html"><i class="fas fa-chevron-right"></i> Преподаватели</a></p>
+                <p><a href="achievements.html"><i class="fas fa-chevron-right"></i> Достижения</a></p>
+                <p><a href="index.html#specialties"><i class="fas fa-chevron-right"></i> Специальности</a></p>
+                <p><a href="index.html#contacts"><i class="fas fa-chevron-right"></i> Контакты</a></p>
+                <p><a href="accessibility.html"><i class="fas fa-chevron-right"></i> Настройки</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Петровский колледж — Отделение информационных технологий</p>
+        </div>
+    </footer>
+
+    <script>
+        // Функция для открытия/закрытия мобильного меню
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('nav-links');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            navLinks.classList.toggle('active');
+            
+            // Меняем иконку
+            if (navLinks.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+
+        // Закрываем меню при клике на ссылку (для мобильных)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('nav-links');
+                const menuIcon = document.getElementById('menu-icon');
+                
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

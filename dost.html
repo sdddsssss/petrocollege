@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Достижения и события — Петровский колледж</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --cyan: #06b6d4;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(124, 58, 237, 0.2);
+            --card-bg: rgba(22, 33, 62, 0.6);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .nav-logo i { color: var(--accent); font-size: 2rem; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 2rem 60px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Achievements Container */
+        .achievements-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 100px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin: 4rem 0 2rem;
+            color: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: var(--secondary);
+        }
+
+        .news-content {
+            padding: 2rem;
+        }
+
+        .news-date {
+            display: inline-block;
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--accent-light);
+            padding: 0.25rem 1rem;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .news-description {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .news-participants {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .participants-title {
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .participants-list {
+            list-style: none;
+        }
+
+        .participants-list li {
+            padding: 0.4rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .participants-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .award-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+            color: #ffd700;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .award-badge.bronze {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(139, 69, 19, 0.2));
+            color: #cd7f32;
+        }
+
+        .award-badge.silver {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(169, 169, 169, 0.2));
+            color: #c0c0c0;
+        }
+
+        .award-badge.gold {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+            color: #ffd700;
+        }
+
+        /* Footer */
+        .contact-footer {
+            background: var(--secondary);
+            border-top: 1px solid var(--border);
+            padding: 60px 2rem 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            line-height: 2;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-section i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2rem; }
+            .news-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-microchip"></i>
+                <span>ОИТ Петровский колледж</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="index.html#specialties">Специальности</a></li>
+                <li><a href="teachers.html">Преподаватели</a></li>
+                <li><a href="achievements.html" class="active">Достижения</a></li>
+                <li><a href="index.html#contacts">Контакты</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1>Достижения и события</h1>
+        <p>Наши студенты и преподаватели регулярно занимают призовые места на чемпионатах, олимпиадах и конкурсах профессионального мастерства</p>
+    </header>
+
+    <!-- Achievements Container -->
+    <div class="achievements-container">
+        <h2 class="section-title">Последние достижения</h2>
+        
+        <div class="news-grid">
+            <!-- Championship Professionals -->
+            <article class="news-card">
+                <div class="news-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <div class="news-content">
+                    <span class="news-date">21-25 апреля 2025</span>
+                    <h3 class="news-title">Чемпионат «Профессионалы» — Диспетчеризация технологических процессов</h3>
+                    <p class="news-description">
+                        Межрегиональный этап Чемпионата «Профессионалы» по компетенции «Диспетчеризация технологических процессов» в городе Оренбург. Главной задачей была сборка схемы для управления теплопунктом жилого дома, программирование диспетчерской функции в интеллектуальные системы управления.
+                    </p>
+                    <div class="news-participants">
+                        <div class="participants-title"><i class="fas fa-users"></i> Команда:</div>
+                        <ul class="participants-list">
+                            <li>Суяшова Алёна (группа 54-15) — конкурсант</li>
+                            <li>Буглак Мария Михайловна — эксперт наставник</li>
+                            <li>Забурдяева Руслана Евгеньевна — сопровождающий</li>
+                        </ul>
+                    </div>
+                    <div class="award-badge bronze">
+                        <i class="fas fa-medal"></i>
+                        🥉 Бронзовый призёр
+                    </div>
+                </div>
+            </article>
+
+            <!-- Hackathon Razum 2.0 -->
+            <article class="news-card">
+                <div class="news-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="news-content">
+                    <span class="news-date">2025</span>
+                    <h3 class="news-title">Межвузовский хакатон «Разум 2.0» в СПбГМТУ</h3>
+                    <p class="news-description">
+                        Команды ОИТ успешно выступили на хакатоне в двух номинациях: робототехника (разработка алгоритмов движения, 3D-печать, компьютерное зрение) и программирование (аналитическая система с машинным обучением, веб-приложение).
+                    </p>
+                    <div class="news-participants">
+                        <div class="participants-title"><i class="fas fa-trophy"></i> Результаты:</div>
+                        <ul class="participants-list">
+                            <li>Группа 52-55 (Вырвин Артем, Терсков Александр, Образцов Алексей) — 3 место в робототехнике</li>
+                            <li>Группа 53-15 (Зайцев Кирилл, Жилатежев Азамат, Лукашов Георгий) — 2 место в программировании</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Game Where's Logic -->
+            <article class="news-card">
+                <div class="news-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="news-content">
+                    <span class="news-date">21 января 2025</span>
+                    <h3 class="news-title">Интеллектуальная игра «Где логика?»</h3>
+                    <p class="news-description">
+                        Увлекательная игра, организованная совместно отделениями ОИТ и ОПТС в честь Дня студента. Игроки состязались в решении логических задач, демонстрируя командный дух и оригинальные подходы.
+                    </p>
+                    <div class="news-participants">
+                        <div class="participants-title"><i class="fas fa-award"></i> Результаты:</div>
+                        <ul class="participants-list">
+                            <li>🥇 1 место — группа 34-53</li>
+                            <li>🥈 2 место — группа 52-55</li>
+                            <li>🥉 3 место — группа 54-03</li>
+                            <li>4 место — группы 53-15 и 33-06</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Championship High Technologies -->
+            <article class="news-card">
+                <div class="news-image" style="background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: #1a1a2e;">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="news-content">
+                    <span class="news-date">2025</span>
+                    <h3 class="news-title">Чемпионат высоких технологий — Великий Новгород</h3>
+                    <p class="news-description">
+                        Наши представители завоевали золото в основном и индустриальном зачетах по компетенции «Диспетчеризация технологических процессов».
+                    </p>
+                    <div class="news-participants">
+                        <div class="participants-title"><i class="fas fa-star"></i> Победители:</div>
+                        <ul class="participants-list">
+                            <li>Гусев Владислав — студент Петровского колледжа</li>
+                            <li>Громов Виктор Анатольевич — наставник</li>
+                        </ul>
+                    </div>
+                    <div class="award-badge gold">
+                        <i class="fas fa-medal"></i>
+                        🥇 Две золотые медали
+                    </div>
+                </div>
+            </article>
+
+            <!-- Math Olympiad -->
+            <article class="news-card">
+                <div class="news-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: #1a1a2e;">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="news-content">
+                    <span class="news-date">26 апреля 2024</span>
+                    <h3 class="news-title">Региональная олимпиада «Математика без границ 2024»</h3>
+                    <p class="news-description">
+                        Олимпиада в Санкт-Петербургском колледже телекоммуникаций им. Э.Т. Кренкеля для студентов СПО. Участвовали 23 студента из 8 колледжей Санкт-Петербурга.
+                    </p>
+                    <div class="news-participants">
+                        <div class="participants-title"><i class="fas fa-users"></i> Команда:</div>
+                        <ul class="participants-list">
+                            <li>Карандеев Денис (52-02) — 1 место (84 из 100 баллов)</li>
+                            <li>Картошкин Константин (52-03)</li>
+                            <li>Коновченко Дарья (52-03)</li>
+                            <li>Наставник: Говорова Татьяна Леонидовна</li>
+                        </ul>
+                    </div>
+                    <div class="award-badge gold">
+                        <i class="fas fa-medal"></i>
+                        🥇 Победитель
+                    </div>
+                </div>
+            </article>
+
+            <!-- Competition My Profession is IT -->
+            <article class="news-card">
+                <div class="news-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="news-content">
+                    <span class="news-date">22-24 ноября 2024</span>
+                    <h3 class="news-title">Всероссийский конкурс «Моя профессия – ИТ»</h3>
+                    <p class="news-description">
+                        Региональный этап конкурса между школьниками, ВУЗами и колледжами. 25 команд создавали проекты по трем трекам: БПЛА, игровые приложения, программы с ИИ.
+                    </p>
+                    <div class="news-participants">
+                        <div class="participants-title"><i class="fas fa-award"></i> Наши команды:</div>
+                        <ul class="participants-list">
+                            <li>Группа 52-02 (трек 2: игровое приложение)</li>
+                            <li>Группа 51-55 (трек 1: БПЛА)</li>
+                            <li>Группа 52-55 (трек 1: БПЛА) — 2 место среди всех кейсов</li>
+                        </ul>
+                    </div>
+                    <div class="award-badge silver">
+                        <i class="fas fa-medal"></i>
+                        🥈 2 место + партнерские номинации
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="contact-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Приемная комиссия</h4>
+                <p><i class="fas fa-map-marker-alt"></i> ул. Курляндская, д. 39<br>Санкт-Петербург</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:88122442020">8 (812) 244-20-20</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Заочная форма обучения</h4>
+                <p><i class="fas fa-phone"></i> <a href="tel:78126453559">+7 (812) 645-35-59</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Быстрые ссылки</h4>
+                <p><a href="index.html"><i class="fas fa-chevron-right"></i> Главная</a></p>
+                <p><a href="teachers.html"><i class="fas fa-chevron-right"></i> Преподаватели</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Петровский колледж — Отделение информационных технологий</p>
+        </div>
+    </footer>
+</body>
+</html>

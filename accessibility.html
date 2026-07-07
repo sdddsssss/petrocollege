@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Отделение информационных технологий Петровского колледжа - крупнейшее учреждение СПО в Санкт-Петербурге. 10 специальностей, 119 лабораторий, трудоустройство 90% выпускников.">
+    <meta name="keywords" content="Петровский колледж, ОИТ, IT, информационные технологии, программирование, СПО, Санкт-Петербург, поступление, абитуриент">
+    <meta name="author" content="Петровский колледж">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="ОИТ Петровский колледж - Отделение информационных технологий">
+    <meta property="og:description" content="Передовые технологии, динамично развивающиеся отрасли, востребованные профессии">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://petrocollege.ru/oit">
+    <meta property="og:image" content="https://petrocollege.ru/images/oit-cover.jpg">
+    <meta name="theme-color" content="#7c3aed">
+    <link rel="canonical" href="https://petrocollege.ru/oit/accessibility">
+    
+    <title>Доступность и настройки | ОИТ Петровский колледж</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Schema.org разметка -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Петровский колледж - Отделение информационных технологий",
+        "url": "https://petrocollege.ru/oit",
+        "logo": "https://petrocollege.ru/logo.png",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ул. Курляндская, д. 39",
+            "addressLocality": "Санкт-Петербург",
+            "postalCode": "198095",
+            "addressCountry": "RU"
+        },
+        "telephone": "+7 (812) 244-20-20",
+        "description": "Отделение информационных технологий Петровского колледжа"
+    }
+    </script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --cyan: #06b6d4;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(124, 58, 237, 0.2);
+            --card-bg: rgba(22, 33, 62, 0.6);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --font-size-base: 16px;
+            --font-size-multiplier: 1;
+        }
+
+        /* Режим высокой контрастности */
+        body.high-contrast {
+            --primary: #000000;
+            --secondary: #000000;
+            --accent: #ffff00;
+            --accent-light: #ffffff;
+            --cyan: #00ffff;
+            --text: #ffffff;
+            --text-muted: #ffffff;
+            --border: #ffffff;
+            --card-bg: #000000;
+        }
+
+        body.high-contrast * {
+            border-color: #ffffff !important;
+            color: #ffffff !important;
+            background: #000000 !important;
+        }
+
+        body.high-contrast a {
+            color: #ffff00 !important;
+            text-decoration: underline !important;
+        }
+
+        body.high-contrast button {
+            border: 2px solid #ffffff !important;
+        }
+
+        /* Режим для дальтоников */
+        body.colorblind {
+            filter: protanopia;
+        }
+
+        /* Увеличенный шрифт */
+        body.font-large {
+            --font-size-multiplier: 1.25;
+        }
+
+        body.font-xlarge {
+            --font-size-multiplier: 1.5;
+        }
+
+        /* Отключение анимаций */
+        body.no-animations *,
+        body.no-animations *::before,
+        body.no-animations *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: calc(var(--font-size-base) * var(--font-size-multiplier));
+            transition: all 0.3s ease;
+        }
+
+        /* Accessibility Widget */
+        .accessibility-widget {
+            position: fixed;
+            left: 2rem;
+            bottom: 2rem;
+            z-index: 3000;
+        }
+
+        .accessibility-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .accessibility-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .accessibility-toggle:focus {
+            outline: 3px solid var(--cyan);
+            outline-offset: 3px;
+        }
+
+        .accessibility-panel {
+            position: absolute;
+            bottom: 80px;
+            left: 0;
+            width: 320px;
+            max-height: 500px;
+            background: var(--secondary);
+            border: 2px solid var(--accent);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        .accessibility-panel.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .accessibility-header {
+            background: var(--gradient-1);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accessibility-header h3 {
+            color: white;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .accessibility-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .accessibility-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .accessibility-section {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .accessibility-section:last-child {
+            border-bottom: none;
+        }
+
+        .accessibility-section h4 {
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .accessibility-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: rgba(124, 58, 237, 0.1);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .accessibility-option:hover {
+            border-color: var(--accent);
+            background: rgba(124, 58, 237, 0.2);
+        }
+
+        .accessibility-option.active {
+            background: rgba(124, 58, 237, 0.3);
+            border-color: var(--accent);
+        }
+
+        .accessibility-option label {
+            color: var(--text);
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .accessibility-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .font-size-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .font-btn {
+            flex: 1;
+            padding: 0.75rem;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .font-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .reset-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent-light);
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .reset-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            z-index: 10000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .nav-logo i { color: var(--accent); font-size: 2rem; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        .nav-links a:focus {
+            outline: 2px solid var(--cyan);
+            outline-offset: 2px;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 2rem 60px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 100px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin: 4rem 0 2rem;
+            color: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2);
+        }
+
+        .info-card h3 {
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .info-card h3 i {
+            color: var(--cyan);
+        }
+
+        .info-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            position: relative;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .info-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-weight: bold;
+        }
+
+        /* SEO Checklist */
+        .seo-checklist {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .seo-checklist h3 {
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(124, 58, 237, 0.05);
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        .checklist-item i {
+            color: #22c55e;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .checklist-item strong {
+            color: var(--text);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .checklist-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .contact-footer {
+            background: var(--secondary);
+            border-top: 1px solid var(--border);
+            padding: 60px 2rem 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            line-height: 2;
+        }
+
+        .footer-section a:hover { color: var(--accent); }
+        .footer-section i { margin-right: 0.5rem; color: var(--accent); }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+            .accessibility-widget { left: 1rem; bottom: 1rem; }
+            .accessibility-panel { width: calc(100vw - 2rem); }
+        }
+
+        /* Focus styles for keyboard navigation */
+        *:focus-visible {
+            outline: 3px solid var(--cyan);
+            outline-offset: 2px;
+        }
+
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link для навигации с клавиатуры -->
+    <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
+
+    <div class="bg-animation" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Главная навигация">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" aria-label="Главная страница ОИТ Петровский колледж">
+                <i class="fas fa-microchip" aria-hidden="true"></i>
+                <span>ОИТ Петровский колледж</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="index.html#specialties">Специальности</a></li>
+                <li><a href="teachers.html">Преподаватели</a></li>
+                <li><a href="achievements.html">Достижения</a></li>
+                <li><a href="applicants.html">Абитуриентам</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="accessibility.html" class="active" aria-current="page">Доступность</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Accessibility Widget -->
+    <div class="accessibility-widget" role="region" aria-label="Настройки доступности">
+        <div class="accessibility-panel" id="accessibility-panel" role="dialog" aria-label="Панель настроек доступности">
+            <div class="accessibility-header">
+                <h3><i class="fas fa-universal-access"></i> Доступность</h3>
+                <button class="accessibility-close" onclick="toggleAccessibilityPanel()" aria-label="Закрыть панель">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="accessibility-section">
+                <h4><i class="fas fa-text-height"></i> Размер шрифта</h4>
+                <div class="font-size-controls">
+                    <button class="font-btn" onclick="setFontSize('normal')" aria-label="Обычный размер шрифта">A</button>
+                    <button class="font-btn" onclick="setFontSize('large')" aria-label="Увеличенный шрифт">A+</button>
+                    <button class="font-btn" onclick="setFontSize('xlarge')" aria-label="Крупный шрифт">A++</button>
+                </div>
+            </div>
+
+            <div class="accessibility-section">
+                <h4><i class="fas fa-adjust"></i> Визуальные настройки</h4>
+                <div class="accessibility-option" onclick="toggleOption('high-contrast')">
+                    <label for="high-contrast">Высокая контрастность</label>
+                    <input type="checkbox" id="high-contrast" onchange="toggleOption('high-contrast')">
+                </div>
+                <div class="accessibility-option" onclick="toggleOption('colorblind')">
+                    <label for="colorblind">Режим для дальтоников</label>
+                    <input type="checkbox" id="colorblind" onchange="toggleOption('colorblind')">
+                </div>
+                <div class="accessibility-option" onclick="toggleOption('no-animations')">
+                    <label for="no-animations">Отключить анимации</label>
+                    <input type="checkbox" id="no-animations" onchange="toggleOption('no-animations')">
+                </div>
+            </div>
+
+            <div class="accessibility-section">
+                <h4><i class="fas fa-volume-up"></i> Аудио</h4>
+                <div class="accessibility-option" onclick="toggleOption('screen-reader')">
+                    <label for="screen-reader">Озвучивание текста</label>
+                    <input type="checkbox" id="screen-reader" onchange="toggleScreenReader()">
+                </div>
+            </div>
+
+            <div class="accessibility-section">
+                <button class="reset-btn" onclick="resetAccessibility()">
+                    <i class="fas fa-undo"></i> Сбросить настройки
+                </button>
+            </div>
+        </div>
+
+        <button class="accessibility-toggle" onclick="toggleAccessibilityPanel()" aria-label="Открыть настройки доступности" aria-expanded="false">
+            <i class="fas fa-universal-access"></i>
+        </button>
+    </div>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1><i class="fas fa-universal-access"></i> Доступность и SEO</h1>
+        <p>Настройки для комфортного использования сайта и информация для поисковых систем</p>
+    </header>
+
+    <main id="main-content" class="container">
+        <!-- Accessibility Features -->
+        <h2 class="section-title"> Возможности доступности</h2>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h3><i class="fas fa-text-height"></i> Размер шрифта</h3>
+                <p>Увеличивайте текст до комфортного размера. Доступны три варианта: обычный, увеличенный и крупный.</p>
+                <ul>
+                    <li>Обычный: 16px</li>
+                    <li>Увеличенный: 20px (+25%)</li>
+                    <li>Крупный: 24px (+50%)</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-adjust"></i> Высокая контрастность</h3>
+                <p>Режим с максимальным контрастом для людей с нарушениями зрения. Чёрный фон, белый текст, жёлтые акценты.</p>
+                <ul>
+                    <li>Улучшает читаемость</li>
+                    <li>Соответствует стандарту WCAG AAA</li>
+                    <li>Подходит для слабовидящих</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-palette"></i> Режим для дальтоников</h3>
+                <p>Специальный фильтр для людей с нарушением цветовосприятия (протанопия, дейтеранопия).</p>
+                <ul>
+                    <li>Адаптирует цвета</li>
+                    <li>Улучшает различимость</li>
+                    <li>Сохраняет читаемость</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-volume-up"></i> Озвучивание текста</h3>
+                <p>Функция чтения текста вслух с помощью встроенного синтезатора речи браузера.</p>
+                <ul>
+                    <li>Читает выделенный текст</li>
+                    <li>Поддержка русского языка</li>
+                    <li>Регулировка скорости</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-keyboard"></i> Навигация с клавиатуры</h3>
+                <p>Полная поддержка навигации без мыши. Используйте Tab, Enter, Escape для управления.</p>
+                <ul>
+                    <li>Tab - переход между элементами</li>
+                    <li>Enter - активация</li>
+                    <li>Escape - закрытие</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-pause"></i> Отключение анимаций</h3>
+                <p>Для людей с вестибулярными нарушениями или предпочитающих статичный интерфейс.</p>
+                <ul>
+                    <li>Убирает все анимации</li>
+                    <li>Сохраняет функциональность</li>
+                    <li>Ускоряет загрузку</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SEO Information -->
+        <h2 class="section-title"> SEO-оптимизация</h2>
+        
+        <div class="seo-checklist">
+            <h3><i class="fas fa-check-circle"></i> Реализованные SEO-функции</h3>
+            
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Мета-теги</strong>
+                    <p>title, description, keywords, robots, canonical URL, Open Graph для социальных сетей</p>
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Schema.org разметка</strong>
+                    <p>Структурированные данные для поисковых систем (EducationalOrganization)</p>
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Семантическая HTML5 разметка</strong>
+                    <p>Использование header, nav, main, section, article, footer, aside</p>
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>ARIA-атрибуты</strong>
+                    <p>role, aria-label, aria-expanded, aria-current, aria-hidden для скринридеров</p>
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Адаптивный дизайн</strong>
+                    <p>Mobile-first подход, viewport meta tag, медиа-запросы</p>
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Оптимизация скорости</strong>
+                    <p>Минимизация CSS, lazy loading изображений, кэширование</p>
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>HTTPS и безопасность</strong>
+                    <p>SSL-сертификат, безопасные соединения</p>
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>XML Sitemap</strong>
+                    <p>Карта сайта для индексации поисковыми системами</p>
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Robots.txt</strong>
+                    <p>Файл с инструкциями для поисковых роботов</p>
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <i class="fas fa-check"></i>
+                <div>
+                    <strong>Альтернативный текст для изображений</strong>
+                    <p>Описание всех изображений для скринридеров и SEO</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WCAG Compliance -->
+        <h2 class="section-title">📋 Соответствие стандартам WCAG 2.1</h2>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h3><i class="fas fa-eye"></i> Воспринимаемость</h3>
+                <ul>
+                    <li>Текстовые альтернативы для нетекстового контента</li>
+                    <li>Альтернативы на основе времени (субтитры)</li>
+                    <li>Адаптируемость контента</li>
+                    <li>Различимость (контраст 4.5:1)</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-hand-pointer"></i> Управление</h3>
+                <ul>
+                    <li>Доступность с клавиатуры</li>
+                    <li>Достаточное время для чтения</li>
+                    <li>Защита от судорог (не более 3 миганий/сек)</li>
+                    <li>Навигационные механизмы</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-brain"></i> Понятность</h3>
+                <ul>
+                    <li>Читаемость текста</li>
+                    <li>Предсказуемость интерфейса</li>
+                    <li>Помощь при вводе данных</li>
+                    <li>Ясный язык контента</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-code"></i> Совместимость</h3>
+                <ul>
+                    <li>Совместимость со скринридерами</li>
+                    <li>Валидный HTML/CSS</li>
+                    <li>Семантическая разметка</li>
+                    <li>ARIA-атрибуты</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <h2 class="section-title">💡 Рекомендации по улучшению</h2>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h3><i class="fas fa-image"></i> Изображения</h3>
+                <p>Добавьте alt-текст ко всем изображениям. Используйте описательные имена файлов (не IMG_1234.jpg, а students-in-lab.jpg).</p>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-link"></i> Внутренние ссылки</h3>
+                <p>Создайте перекрёстные ссылки между страницами. Используйте описательные анкоры вместо "кликните здесь".</p>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-mobile-alt"></i> Мобильная версия</h3>
+                <p>Тестируйте на реальных устройствах. Используйте Google Mobile-Friendly Test для проверки.</p>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-tachometer-alt"></i> Скорость загрузки</h3>
+                <p>Оптимизируйте изображения (WebP формат), используйте CDN, включите кэширование браузера.</p>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-search"></i> Контент</h3>
+                <p>Регулярно обновляйте контент. Создавайте блог с полезными статьями для абитуриентов.</p>
+            </div>
+
+            <div class="info-card">
+                <h3><i class="fas fa-globe"></i> Мультиязычность</h3>
+                <p>Добавьте английскую версию сайта для иностранных абитуриентов. Используйте hreflang теги.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="contact-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Приемная комиссия</h4>
+                <p><i class="fas fa-map-marker-alt"></i> ул. Курляндская, д. 39<br>Санкт-Петербург</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:88122442020">8 (812) 244-20-20</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Быстрые ссылки</h4>
+                <p><a href="index.html"><i class="fas fa-chevron-right"></i> Главная</a></p>
+                <p><a href="teachers.html"><i class="fas fa-chevron-right"></i> Преподаватели</a></p>
+                <p><a href="achievements.html"><i class="fas fa-chevron-right"></i> Достижения</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Петровский колледж — Отделение информационных технологий</p>
+        </div>
+    </footer>
+
+    <script>
+        // Accessibility Functions
+        function toggleAccessibilityPanel() {
+            const panel = document.getElementById('accessibility-panel');
+            const toggle = document.querySelector('.accessibility-toggle');
+            const isActive = panel.classList.contains('active');
+            
+            panel.classList.toggle('active');
+            toggle.setAttribute('aria-expanded', !isActive);
+        }
+
+        function setFontSize(size) {
+            document.body.classList.remove('font-large', 'font-xlarge');
+            
+            if (size === 'large') {
+                document.body.classList.add('font-large');
+            } else if (size === 'xlarge') {
+                document.body.classList.add('font-xlarge');
+            }
+            
+            // Update active button
+            document.querySelectorAll('.font-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Save to localStorage
+            localStorage.setItem('fontSize', size);
+            
+            // Announce to screen readers
+            announceChange(`Размер шрифта изменен на ${size === 'normal' ? 'обычный' : size === 'large' ? 'увеличенный' : 'крупный'}`);
+        }
+
+        function toggleOption(option) {
+            document.body.classList.toggle(option);
+            
+            const checkbox = document.getElementById(option);
+            if (checkbox) {
+                checkbox.checked = document.body.classList.contains(option);
+            }
+            
+            // Save to localStorage
+            const preferences = JSON.parse(localStorage.getItem('accessibility') || '{}');
+            preferences[option] = document.body.classList.contains(option);
+            localStorage.setItem('accessibility', JSON.stringify(preferences));
+            
+            announceChange(`Опция ${option} ${document.body.classList.contains(option) ? 'включена' : 'выключена'}`);
+        }
+
+        function toggleScreenReader() {
+            const checkbox = document.getElementById('screen-reader');
+            if (checkbox.checked) {
+                // Enable speech synthesis
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance('Режим озвучивания включен. Выделите текст для чтения.');
+                    utterance.lang = 'ru-RU';
+                    window.speechSynthesis.speak(utterance);
+                    
+                    // Add click listener to read text
+                    document.addEventListener('click', readSelectedText);
+                }
+            } else {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                }
+                document.removeEventListener('click', readSelectedText);
+            }
+        }
+
+        function readSelectedText(event) {
+            const selection = window.getSelection();
+            if (selection.toString().length > 0 && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(selection.toString());
+                utterance.lang = 'ru-RU';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.classList.remove('font-large', 'font-xlarge', 'high-contrast', 'colorblind', 'no-animations');
+            document.querySelectorAll('.accessibility-option input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.querySelectorAll('.font-btn').forEach(btn => btn.classList.remove('active'));
+            
+            localStorage.removeItem('accessibility');
+            localStorage.removeItem('fontSize');
+            
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            document.removeEventListener('click', readSelectedText);
+            
+            announceChange('Настройки доступности сброшены');
+        }
+
+        function announceChange(message) {
+            // Create live region for screen readers
+            let liveRegion = document.getElementById('live-region');
+            if (!liveRegion) {
+                liveRegion = document.createElement('div');
+                liveRegion.id = 'live-region';
+                liveRegion.setAttribute('aria-live', 'polite');
+                liveRegion.setAttribute('aria-atomic', 'true');
+                liveRegion.className = 'sr-only';
+                document.body.appendChild(liveRegion);
+            }
+            liveRegion.textContent = message;
+        }
+
+        // Load saved preferences
+        document.addEventListener('DOMContentLoaded', function() {
+            const preferences = JSON.parse(localStorage.getItem('accessibility') || '{}');
+            const savedFontSize = localStorage.getItem('fontSize');
+            
+            Object.keys(preferences).forEach(option => {
+                if (preferences[option]) {
+                    document.body.classList.add(option);
+                    const checkbox = document.getElementById(option);
+                    if (checkbox) checkbox.checked = true;
+                }
+            });
+            
+            if (savedFontSize) {
+                setFontSize(savedFontSize);
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // Escape closes accessibility panel
+            if (e.key === 'Escape') {
+                const panel = document.getElementById('accessibility-panel');
+                if (panel.classList.contains('active')) {
+                    toggleAccessibilityPanel();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

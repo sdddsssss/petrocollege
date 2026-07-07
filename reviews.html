@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы — Петровский колледж</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --cyan: #06b6d4;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(124, 58, 237, 0.2);
+            --card-bg: rgba(22, 33, 62, 0.6);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+        }
+
+        /* Верхняя панель */
+        .top-bar {
+            background: rgba(26, 26, 46, 0.98);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 0;
+            font-size: 0.9rem;
+        }
+
+        .top-bar .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .top-bar-left {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .top-bar a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .top-bar a:hover {
+            color: var(--accent-light);
+        }
+
+        .top-bar i.fa-phone,
+        .top-bar i.fa-envelope,
+        .top-bar i.fa-clock {
+            color: var(--accent);
+        }
+
+        .top-bar-social a {
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .nav-logo i { color: var(--accent); font-size: 2rem; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-light);
+        }
+
+        /* Гамбургер-меню */
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-menu-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+        }
+
+        .admin-login-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent-light);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 44px;
+        }
+
+        .admin-login-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 150px 2rem 60px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .reviews-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: -30px auto 60px;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 100px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin: 4rem 0 2rem;
+            color: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        /* Form Styles */
+        .review-form-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .review-form-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-light);
+        }
+
+        .review-form-section > p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .moderation-notice {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .moderation-notice i {
+            color: #f59e0b;
+            font-size: 1.5rem;
+            margin-top: 0.2rem;
+        }
+
+        .moderation-notice strong {
+            color: #fbbf24;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .moderation-notice p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: var(--text);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group label .required {
+            color: #ef4444;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.75rem 1rem;
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            min-height: 44px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: var(--secondary);
+            color: var(--text);
+        }
+
+        .rating-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .rating-input .star {
+            font-size: 2rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .rating-input .star:hover,
+        .rating-input .star.active {
+            color: #fbbf24;
+            transform: scale(1.2);
+        }
+
+        .rating-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn {
+            padding: 1rem 2.5rem;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            margin-top: 1rem;
+            min-height: 44px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            color: #22c55e;
+            animation: slideIn 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message i {
+            margin-right: 0.75rem;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 44px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .filter-btn .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        /* Reviews Grid */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .review-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2);
+        }
+
+        .review-card.featured {
+            border-color: var(--accent);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .review-card.featured::before {
+            transform: scaleX(1);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-avatar {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .review-avatar.parent { background: var(--gradient-2); }
+        .review-avatar.alumni { background: var(--gradient-3); }
+
+        .review-meta { flex: 1; }
+
+        .review-author {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .review-role {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-role i { font-size: 0.8rem; }
+
+        .review-rating {
+            display: flex;
+            gap: 0.25rem;
+            color: #fbbf24;
+            font-size: 1rem;
+        }
+
+        .review-rating .empty { color: var(--text-muted); }
+
+        .review-text {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--accent);
+        }
+
+        .review-text::before {
+            content: '"';
+            position: absolute;
+            left: -0.5rem;
+            top: -1rem;
+            font-size: 3rem;
+            color: var(--accent);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .review-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .review-tag {
+            display: inline-block;
+            background: rgba(124, 58, 237, 0.2);
+            border: 1px solid var(--accent);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+        }
+
+        .review-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .pros-cons-block {
+            padding: 1rem;
+            border-left: 3px solid;
+        }
+
+        .pros-cons-block.pros {
+            background: rgba(34, 197, 94, 0.05);
+            border-color: #22c55e;
+        }
+
+        .pros-cons-block.cons {
+            background: rgba(239, 68, 68, 0.05);
+            border-color: #ef4444;
+        }
+
+        .pros-cons-block h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pros-cons-block.pros h4 { color: #22c55e; }
+        .pros-cons-block.cons h4 { color: #ef4444; }
+
+        .pros-cons-block ul { list-style: none; padding: 0; }
+
+        .pros-cons-block li {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 0.25rem 0 0.25rem 1.2rem;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .pros-cons-block.pros li::before {
+            content: '+';
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .pros-cons-block.cons li::before {
+            content: '−';
+            position: absolute;
+            left: 0;
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            padding: 2rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-panel.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-header h2 {
+            color: var(--accent-light);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 44px;
+        }
+
+        .admin-tab:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .admin-tab.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .admin-tab .count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        .admin-review-card {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .admin-review-card:hover {
+            border-color: var(--accent);
+        }
+
+        .admin-review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .admin-review-info {
+            flex: 1;
+        }
+
+        .admin-review-info h4 {
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .admin-review-info .meta {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-badge.pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+            border: 1px solid #f59e0b;
+        }
+
+        .status-badge.approved {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .status-badge.rejected {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .admin-review-text {
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 3px solid var(--accent);
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .admin-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 44px;
+        }
+
+        .admin-btn.approve {
+            background: #22c55e;
+            color: white;
+        }
+
+        .admin-btn.approve:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+        }
+
+        .admin-btn.reject {
+            background: #ef4444;
+            color: white;
+        }
+
+        .admin-btn.reject:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .admin-btn.delete {
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            color: var(--text-muted);
+        }
+
+        .admin-btn.delete:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .admin-btn.restore {
+            background: var(--accent);
+            color: white;
+        }
+
+        .admin-btn.restore:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Login Modal */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-modal.active {
+            display: flex;
+        }
+
+        .login-box {
+            background: var(--secondary);
+            border: 1px solid var(--accent);
+            padding: 2.5rem;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-box h3 {
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            min-height: 44px;
+        }
+
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            min-height: 44px;
+        }
+
+        .login-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-error {
+            color: #ef4444;
+            font-size: 0.9rem;
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
+        .logout-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 44px;
+        }
+
+        .logout-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .alert-box {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .alert-box i {
+            color: #f59e0b;
+            margin-right: 0.75rem;
+        }
+
+        .alert-box.success {
+            background: rgba(34, 197, 94, 0.1);
+            border-left-color: #22c55e;
+        }
+
+        .alert-box.success i { color: #22c55e; }
+
+        .contact-footer {
+            background: var(--secondary);
+            border-top: 1px solid var(--border);
+            padding: 60px 2rem 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            line-height: 2;
+        }
+
+        .footer-section a:hover { color: var(--accent); }
+        .footer-section i { margin-right: 0.5rem; color: var(--accent); }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2rem; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            .pros-cons { grid-template-columns: 1fr; }
+            .review-form-section { padding: 2rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .admin-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            
+            /* Показываем гамбургер-меню на мобильных */
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            /* Скрываем навигацию по умолчанию */
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--secondary);
+                flex-direction: column;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid var(--border);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+            
+            /* Показываем навигацию когда активна */
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                width: 100%;
+            }
+            
+            .nav-links a {
+                width: 100%;
+                padding: 0.75rem 0;
+            }
+            
+            /* Верхняя панель */
+            .top-bar .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .top-bar-left {
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+            
+            /* Увеличиваем кнопки для пальцев */
+            button, a, .btn, .filter-btn, .admin-btn, .submit-btn {
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: rgba(124, 58, 237, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <!-- Верхняя панель с иконками -->
+    <div class="top-bar">
+        <div class="nav-container">
+            <div class="top-bar-left">
+                <a href="tel:88122442020">
+                    <i class="fas fa-phone"></i>
+                    <span>8 (812) 244-20-20</span>
+                </a>
+                <a href="mailto:director@petrocollege.ru">
+                    <i class="fas fa-envelope"></i>
+                    <span>director@petrocollege.ru</span>
+                </a>
+                <div style="color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-clock"></i>
+                    <span>Пн-Пт: 10:00 - 15:00</span>
+                </div>
+            </div>
+            
+            <div class="top-bar-right top-bar-social">
+                <a href="https://vk.com/petrocollege_spb" target="_blank" title="ВКонтакте">
+                    <i class="fab fa-vk"></i>
+                </a>
+                <a href="https://www.youtube.com/channel/UCbCgD2jMRWo3mC8QXcbJLuw" target="_blank" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://telegram.org" target="_blank" title="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fas fa-microchip"></i>
+                <span>ОИТ Петровский колледж</span>
+            </a>
+            
+            <!-- Гамбургер-меню кнопка -->
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Открыть меню">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="index.html#specialties">Специальности</a></li>
+                <li><a href="teachers.html">Преподаватели</a></li>
+                <li><a href="achievements.html">Достижения</a></li>
+                <li><a href="applicants.html">Абитуриентам</a></li>
+                <li><a href="reviews.html" class="active">Отзывы</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="accessibility.html">Настройки</a></li>
+                <li><a href="index.html#contacts">Контакты</a></li>
+                <li>
+                    <button class="admin-login-btn" id="admin-nav-btn" onclick="showLoginModal()">
+                        <i class="fas fa-lock"></i>
+                        <span>Админ</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1><i class="fas fa-comments"></i> Отзывы студентов</h1>
+        <p>Реальные истории и мнения студентов, выпускников и родителей об отделении информационных технологий</p>
+    </header>
+
+    <div class="reviews-stats">
+        <div class="stat-card">
+            <span class="stat-number" id="avg-rating">4.4</span>
+            <div class="stat-label">Средняя оценка</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="total-reviews">5</span>
+            <div class="stat-label">Опубликовано</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" id="pending-count">0</span>
+            <div class="stat-label">На модерации</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">90%</span>
+            <div class="stat-label">Трудоустройство</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Форма для отзыва -->
+        <div class="review-form-section">
+            <h2><i class="fas fa-pen-fancy" style="color: var(--cyan); margin-right: 0.75rem;"></i>Оставить отзыв</h2>
+            <p>Поделитесь своим опытом обучения в Петровском колледже. Ваш отзыв поможет будущим абитуриентам сделать правильный выбор!</p>
+
+            <div class="moderation-notice">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <strong>Модерация отзывов</strong>
+                    <p>Все отзывы проходят проверку администратором перед публикацией. Обычно проверка занимает до 24 часов. Спасибо за понимание!</p>
+                </div>
+            </div>
+
+            <form id="review-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Ваше имя <span class="required">*</span></label>
+                        <input type="text" id="review-name" placeholder="Например: Иван Иванов" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Категория <span class="required">*</span></label>
+                        <select id="review-category" required>
+                            <option value="">Выберите категорию...</option>
+                            <option value="student">Студент</option>
+                            <option value="alumni">Выпускник</option>
+                            <option value="parent">Родитель</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Курс / Год выпуска</label>
+                        <input type="text" id="review-course" placeholder="Например: 3 курс или 2024">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Специальность</label>
+                        <input type="text" id="review-specialty" placeholder="Например: Программирование">
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label>Ваша оценка <span class="required">*</span></label>
+                    <div class="rating-input" id="rating-input">
+                        <span class="star" data-value="1"><i class="fas fa-star"></i></span>
+                        <span class="star" data-value="2"><i class="fas fa-star"></i></span>
+                        <span class="star" data-value="3"><i class="fas fa-star"></i></span>
+                        <span class="star" data-value="4"><i class="fas fa-star"></i></span>
+                        <span class="star" data-value="5"><i class="fas fa-star"></i></span>
+                    </div>
+                    <div class="rating-text" id="rating-text">Выберите оценку</div>
+                    <input type="hidden" id="review-rating" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label>Ваш отзыв <span class="required">*</span></label>
+                    <textarea id="review-text" placeholder="Расскажите о вашем опыте обучения: что понравилось, что можно улучшить, какие преподаватели запомнились..." required></textarea>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Плюсы (через запятую)</label>
+                        <input type="text" id="review-pros" placeholder="Например: Хорошие преподаватели, практика">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Минусы (через запятую)</label>
+                        <input type="text" id="review-cons" placeholder="Например: Устаревшее оборудование">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Отправить на модерацию
+                </button>
+
+                <div class="success-message" id="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>Спасибо за ваш отзыв!</strong> Он отправлен на модерацию и будет опубликован после проверки администратором.
+                </div>
+            </form>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel" id="admin-panel">
+            <div class="admin-header">
+                <h2><i class="fas fa-user-shield"></i> Панель модерации отзывов</h2>
+                <button class="logout-btn" onclick="logoutAdmin()">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="switchAdminTab('pending')">
+                    <i class="fas fa-clock"></i> На модерации
+                    <span class="count" id="pending-tab-count">0</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('approved')">
+                    <i class="fas fa-check-circle"></i> Опубликованные
+                    <span class="count" id="approved-tab-count">0</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('rejected')">
+                    <i class="fas fa-times-circle"></i> Отклоненные
+                    <span class="count" id="rejected-tab-count">0</span>
+                </button>
+                <button class="admin-tab" onclick="switchAdminTab('all')">
+                    <i class="fas fa-list"></i> Все отзывы
+                    <span class="count" id="all-tab-count">0</span>
+                </button>
+            </div>
+
+            <div id="admin-reviews-list"></div>
+        </div>
+
+        <!-- Отзывы -->
+        <h2 class="section-title">Что говорят о нас</h2>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterReviews('all')">
+                <i class="fas fa-th"></i> Все отзывы
+            </button>
+            <button class="filter-btn" onclick="filterReviews('student')">
+                <i class="fas fa-user-graduate"></i> Студенты
+            </button>
+            <button class="filter-btn" onclick="filterReviews('alumni')">
+                <i class="fas fa-graduation-cap"></i> Выпускники
+            </button>
+            <button class="filter-btn" onclick="filterReviews('parent')">
+                <i class="fas fa-user-friends"></i> Родители
+            </button>
+        </div>
+
+        <div class="reviews-grid" id="reviews-grid"></div>
+
+        <div class="alert-box success" style="margin-top: 3rem;">
+            <i class="fas fa-info-circle"></i>
+            <strong>Хотите оставить отзыв анонимно?</strong><br>
+            Напишите нам на <a href="mailto:director@petrocollege.ru" style="color: var(--cyan);">director@petrocollege.ru</a>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="login-modal">
+        <div class="login-box">
+            <h3><i class="fas fa-lock"></i> Вход для администратора</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                Введите пароль для доступа к панели модерации
+            </p>
+            <input type="password" id="admin-password" placeholder="Пароль" onkeypress="if(event.key==='Enter') checkPassword()">
+            <button onclick="checkPassword()">
+                <i class="fas fa-sign-in-alt"></i> Войти
+            </button>
+            <div class="login-error" id="login-error">
+                <i class="fas fa-exclamation-circle"></i> Неверный пароль
+            </div>
+            <button onclick="closeLoginModal()" style="margin-top: 1rem; background: transparent; border: 1px solid var(--border); color: var(--text-muted);">
+                Отмена
+            </button>
+        </div>
+    </div>
+
+    <footer class="contact-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Приемная комиссия</h4>
+                <p><i class="fas fa-map-marker-alt"></i> ул. Курляндская, д. 39<br>Санкт-Петербург</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:88122442020">8 (812) 244-20-20</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Заочная форма обучения</h4>
+                <p><i class="fas fa-phone"></i> <a href="tel:78126453559">+7 (812) 645-35-59</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Быстрые ссылки</h4>
+                <p><a href="teachers.html"><i class="fas fa-chevron-right"></i> Преподаватели</a></p>
+                <p><a href="achievements.html"><i class="fas fa-chevron-right"></i> Достижения</a></p>
+                <p><a href="index.html#specialties"><i class="fas fa-chevron-right"></i> Специальности</a></p>
+                <p><a href="applicants.html"><i class="fas fa-chevron-right"></i> Абитуриентам</a></p>
+                <p><a href="index.html#contacts"><i class="fas fa-chevron-right"></i> Контакты</a></p>
+                <p><a href="accessibility.html"><i class="fas fa-chevron-right"></i> Настройки</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Петровский колледж — Отделение информационных технологий</p>
+        </div>
+    </footer>
+
+    <script>
+        // Исходные отзывы (уже одобренные)
+        const defaultReviews = [
+            {
+                id: 1, name: "Сергей Е.", category: "student", course: "3 курс", rating: 4,
+                text: "Учусь на ОИТ уже третий год. Если честно, для колледжа уровень неплохой. На отделении собираются более-менее адекватные люди, контингент спокойный.",
+                pros: ["Преподаватели \"шарящие\" в предмете", "Реальные кейсы из IT-компаний", "Нормальные компьютерные классы"],
+                cons: ["Много \"воды\" в программе", "Устаревшие учебники"],
+                tags: ["Программирование", "Базы данных"],
+                featured: false, date: "2026-06-01", status: "approved"
+            },
+            {
+                id: 2, name: "Артем В.", category: "alumni", course: "Выпуск 2024", rating: 5,
+                text: "Закончил Петровский колледж, отделение ОИТ пару лет назад. Колледж дал отличную базу по алгоритмам, структурам данных и базам данных. В универе многие одногруппники из школ плакали на лекциях по ООП, а я уже всё это знал.",
+                pros: ["Отличная база по алгоритмам", "Структуры данных", "Базы данных"],
+                cons: [],
+                tags: ["Алгоритмы", "ООП", "Архитектура"],
+                featured: true, date: "2026-05-15", status: "approved"
+            },
+            {
+                id: 3, name: "Вероника Г.", category: "parent", course: "Родитель студента", rating: 5,
+                text: "Мой сын учится на отделении ОИТ. Территория охраняется, пропускная система работает. Отношение преподавателей хорошее - хейта и унижений нет. Даже если ребенок не знает предмет, преподаватели идут навстречу.",
+                pros: ["Территория охраняется", "Нет хейта со стороны учителей", "Преподаватели идут навстречу"],
+                cons: ["Накладки с расписанием"],
+                tags: ["Безопасность", "Отношение преподавателей"],
+                featured: false, date: "2026-05-20", status: "approved"
+            },
+            {
+                id: 4, name: "Екатерина К.", category: "student", course: "Студентка ОИТ", rating: 5,
+                text: "Учусь на ОИТ, хочу отметить заведующего отделением Бычкова Алексея Юрьевича — всегда на связи. Из преподавателей очень уважаю Громова Анатолия Викторовича и Марусяка, с которыми пары по программированию и сетям проходят на одном дыхании.",
+                pros: ["Бычков А.Ю. - всегда на связи", "Громов А.В. - отличный преподаватель"],
+                cons: [],
+                tags: ["Бычков А.Ю.", "Громов А.В.", "Программирование"],
+                featured: true, date: "2026-06-05", status: "approved"
+            },
+            {
+                id: 5, name: "Юлия В.", category: "student", course: "Студентка ОИТ", rating: 4,
+                text: "На ОИТ преподаватели в основном адекватные, но требования к \"айтишникам\" жесткие. Диплом или курсовую по базам данных просто так не спишешь - нейросеть они вычисляют за секунду.",
+                pros: ["Опытные преподаватели", "Всегда найдут время объяснить"],
+                cons: ["Жесткие требования"],
+                tags: ["Жесткие требования", "Базы данных"],
+                featured: false, date: "2026-06-10", status: "approved"
+            }
+        ];
+
+        // Загрузка отзывов
+        let reviews = JSON.parse(localStorage.getItem('petroReviews')) || defaultReviews;
+        let currentFilter = 'all';
+        let currentAdminTab = 'pending';
+        let isAdmin = sessionStorage.getItem('isAdmin') === 'true';
+
+        // Пароль администратора
+        const ADMIN_PASSWORD = 'Bp3HjgbECt';
+
+        function saveReviews() {
+            localStorage.setItem('petroReviews', JSON.stringify(reviews));
+        }
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+        }
+
+        function getAvatarClass(category) {
+            if (category === 'parent') return 'parent';
+            if (category === 'alumni') return 'alumni';
+            return '';
+        }
+
+        function getCategoryName(category) {
+            const names = { student: 'Студент', alumni: 'Выпускник', parent: 'Родитель' };
+            return names[category] || category;
+        }
+
+        function getCategoryIcon(category) {
+            const icons = { student: 'fa-user-graduate', alumni: 'fa-graduation-cap', parent: 'fa-user-friends' };
+            return icons[category] || 'fa-user';
+        }
+
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += i <= rating ? '<i class="fas fa-star"></i>' : '<i class="fas fa-star empty"></i>';
+            }
+            return stars;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        function getStatusBadge(status) {
+            const badges = {
+                pending: '<span class="status-badge pending"><i class="fas fa-clock"></i> На модерации</span>',
+                approved: '<span class="status-badge approved"><i class="fas fa-check"></i> Опубликован</span>',
+                rejected: '<span class="status-badge rejected"><i class="fas fa-times"></i> Отклонен</span>'
+            };
+            return badges[status] || '';
+        }
+
+        // Отрисовка отзыва для публичной страницы
+        function renderPublicReview(review) {
+            const avatarClass = getAvatarClass(review.category);
+            const categoryName = getCategoryName(review.category);
+            const categoryIcon = getCategoryIcon(review.category);
+            const stars = generateStars(review.rating);
+            const date = formatDate(review.date);
+
+            let prosHtml = '';
+            let consHtml = '';
+
+            if (review.pros && review.pros.length > 0) {
+                prosHtml = `<div class="pros-cons-block pros"><h4><i class="fas fa-plus-circle"></i> Плюсы</h4><ul>${review.pros.map(p => `<li>${p}</li>`).join('')}</ul></div>`;
+            }
+            if (review.cons && review.cons.length > 0) {
+                consHtml = `<div class="pros-cons-block cons"><h4><i class="fas fa-minus-circle"></i> Минусы</h4><ul>${review.cons.map(c => `<li>${c}</li>`).join('')}</ul></div>`;
+            }
+
+            const prosConsHtml = (prosHtml || consHtml) ? `<div class="pros-cons">${prosHtml}${consHtml}</div>` : '';
+
+            const tagsHtml = review.tags && review.tags.length > 0 ? 
+                `<div class="review-tags">${review.tags.map(t => `<span class="review-tag">${t}</span>`).join('')}</div>` : '';
+
+            const featuredClass = review.featured ? 'featured' : '';
+
+            return `
+                <article class="review-card ${featuredClass}" data-category="${review.category}">
+                    <div class="review-header">
+                        <div class="review-avatar ${avatarClass}">${getInitials(review.name)}</div>
+                        <div class="review-meta">
+                            <div class="review-author">${review.name}</div>
+                            <div class="review-role"><i class="fas ${categoryIcon}"></i> ${categoryName}${review.course ? ' • ' + review.course : ''}</div>
+                            <div class="review-rating">${stars}</div>
+                        </div>
+                    </div>
+                    <div class="review-text">${review.text}</div>
+                    ${prosConsHtml}
+                    ${tagsHtml}
+                    <div class="review-date"><i class="fas fa-calendar"></i> ${date}</div>
+                </article>
+            `;
+        }
+
+        // Отрисовка отзыва в админке
+        function renderAdminReview(review) {
+            const date = formatDate(review.date);
+            const categoryName = getCategoryName(review.category);
+
+            let actionsHtml = '';
+            if (review.status === 'pending') {
+                actionsHtml = `
+                    <button class="admin-btn approve" onclick="approveReview(${review.id})">
+                        <i class="fas fa-check"></i> Одобрить
+                    </button>
+                    <button class="admin-btn reject" onclick="rejectReview(${review.id})">
+                        <i class="fas fa-times"></i> Отклонить
+                    </button>
+                    <button class="admin-btn delete" onclick="deleteReview(${review.id})">
+                        <i class="fas fa-trash"></i> Удалить
+                    </button>
+                `;
+            } else if (review.status === 'approved') {
+                actionsHtml = `
+                    <button class="admin-btn reject" onclick="rejectReview(${review.id})">
+                        <i class="fas fa-times"></i> Снять с публикации
+                    </button>
+                    <button class="admin-btn delete" onclick="deleteReview(${review.id})">
+                        <i class="fas fa-trash"></i> Удалить
+                    </button>
+                `;
+            } else if (review.status === 'rejected') {
+                actionsHtml = `
+                    <button class="admin-btn restore" onclick="approveReview(${review.id})">
+                        <i class="fas fa-undo"></i> Восстановить
+                    </button>
+                    <button class="admin-btn delete" onclick="deleteReview(${review.id})">
+                        <i class="fas fa-trash"></i> Удалить навсегда
+                    </button>
+                `;
+            }
+
+            return `
+                <div class="admin-review-card">
+                    <div class="admin-review-header">
+                        <div class="admin-review-info">
+                            <h4>${review.name} ${getStatusBadge(review.status)}</h4>
+                            <div class="meta">
+                                <i class="fas ${getCategoryIcon(review.category)}"></i> ${categoryName} • 
+                                ${review.course || '—'} • 
+                                Оценка: ${review.rating}/5 • 
+                                <i class="fas fa-calendar"></i> ${date}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="admin-review-text">${review.text}</div>
+                    ${review.pros && review.pros.length > 0 ? `<div style="color: #22c55e; font-size: 0.85rem; margin-bottom: 0.5rem;"><i class="fas fa-plus"></i> Плюсы: ${review.pros.join(', ')}</div>` : ''}
+                    ${review.cons && review.cons.length > 0 ? `<div style="color: #ef4444; font-size: 0.85rem;"><i class="fas fa-minus"></i> Минусы: ${review.cons.join(', ')}</div>` : ''}
+                    <div class="admin-actions">${actionsHtml}</div>
+                </div>
+            `;
+        }
+
+        function renderReviews(filter = 'all') {
+            currentFilter = filter;
+            const grid = document.getElementById('reviews-grid');
+            const approvedReviews = reviews.filter(r => r.status === 'approved');
+            const filteredReviews = filter === 'all' ? approvedReviews : approvedReviews.filter(r => r.category === filter);
+            
+            if (filteredReviews.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><i class="fas fa-comment-slash"></i><p>Пока нет отзывов в этой категории</p></div>';
+            } else {
+                grid.innerHTML = filteredReviews.map(r => renderPublicReview(r)).join('');
+            }
+            updateStats();
+        }
+
+        function renderAdminReviews() {
+            const list = document.getElementById('admin-reviews-list');
+            let filtered = reviews;
+            
+            if (currentAdminTab !== 'all') {
+                filtered = reviews.filter(r => r.status === currentAdminTab);
+            }
+
+            if (filtered.length === 0) {
+                list.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>Нет отзывов в этой категории</p></div>';
+            } else {
+                list.innerHTML = filtered.map(r => renderAdminReview(r)).join('');
+            }
+            updateAdminTabCounts();
+        }
+
+        function updateStats() {
+            const approved = reviews.filter(r => r.status === 'approved');
+            const total = approved.length;
+            const avg = total > 0 ? (approved.reduce((sum, r) => sum + r.rating, 0) / total).toFixed(1) : '0';
+            const pending = reviews.filter(r => r.status === 'pending').length;
+
+            document.getElementById('total-reviews').textContent = total;
+            document.getElementById('avg-rating').textContent = avg;
+            document.getElementById('pending-count').textContent = pending;
+        }
+
+        function updateAdminTabCounts() {
+            document.getElementById('pending-tab-count').textContent = reviews.filter(r => r.status === 'pending').length;
+            document.getElementById('approved-tab-count').textContent = reviews.filter(r => r.status === 'approved').length;
+            document.getElementById('rejected-tab-count').textContent = reviews.filter(r => r.status === 'rejected').length;
+            document.getElementById('all-tab-count').textContent = reviews.length;
+        }
+
+        function filterReviews(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.filter-btn').classList.add('active');
+            renderReviews(category);
+        }
+
+        function switchAdminTab(tab) {
+            currentAdminTab = tab;
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            event.target.closest('.admin-tab').classList.add('active');
+            renderAdminReviews();
+        }
+
+        function approveReview(id) {
+            const review = reviews.find(r => r.id === id);
+            if (review) {
+                review.status = 'approved';
+                saveReviews();
+                renderAdminReviews();
+                renderReviews(currentFilter);
+            }
+        }
+
+        function rejectReview(id) {
+            const review = reviews.find(r => r.id === id);
+            if (review) {
+                review.status = 'rejected';
+                saveReviews();
+                renderAdminReviews();
+                renderReviews(currentFilter);
+            }
+        }
+
+        function deleteReview(id) {
+            if (confirm('Вы уверены, что хотите удалить этот отзыв? Это действие нельзя отменить.')) {
+                reviews = reviews.filter(r => r.id !== id);
+                saveReviews();
+                renderAdminReviews();
+                renderReviews(currentFilter);
+            }
+        }
+
+        // Управление рейтингом в форме
+        const stars = document.querySelectorAll('.rating-input .star');
+        const ratingText = document.getElementById('rating-text');
+        const ratingInput = document.getElementById('review-rating');
+        const ratingLabels = ['Очень плохо', 'Плохо', 'Нормально', 'Хорошо', 'Отлично'];
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = parseInt(this.dataset.value);
+                ratingInput.value = value;
+                ratingText.textContent = ratingLabels[value - 1];
+                stars.forEach((s, index) => s.classList.toggle('active', index < value));
+            });
+        });
+
+        // Отправка формы
+        document.getElementById('review-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('review-name').value.trim();
+            const category = document.getElementById('review-category').value;
+            const course = document.getElementById('review-course').value.trim();
+            const specialty = document.getElementById('review-specialty').value.trim();
+            const rating = parseInt(document.getElementById('review-rating').value);
+            const text = document.getElementById('review-text').value.trim();
+            const pros = document.getElementById('review-pros').value.split(',').map(p => p.trim()).filter(p => p);
+            const cons = document.getElementById('review-cons').value.split(',').map(c => c.trim()).filter(c => c);
+
+            if (!rating) {
+                alert('Пожалуйста, выберите оценку');
+                return;
+            }
+
+            const newReview = {
+                id: Date.now(),
+                name: name,
+                category: category,
+                course: course || getCategoryName(category),
+                rating: rating,
+                text: text,
+                pros: pros,
+                cons: cons,
+                tags: specialty ? [specialty] : [],
+                featured: false,
+                date: new Date().toISOString().split('T')[0],
+                status: 'pending'
+            };
+
+            reviews.unshift(newReview);
+            saveReviews();
+
+            const successMessage = document.getElementById('success-message');
+            successMessage.classList.add('show');
+            this.reset();
+            ratingInput.value = '';
+            ratingText.textContent = 'Выберите оценку';
+            stars.forEach(s => s.classList.remove('active'));
+
+            setTimeout(() => successMessage.classList.remove('show'), 5000);
+            renderReviews();
+            updateStats();
+        });
+
+        // Админ-панель
+        function showLoginModal() {
+            if (isAdmin) {
+                document.getElementById('admin-panel').classList.add('active');
+                renderAdminReviews();
+                document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                document.getElementById('login-modal').classList.add('active');
+                document.getElementById('admin-password').focus();
+            }
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.remove('active');
+            document.getElementById('admin-password').value = '';
+            document.getElementById('login-error').classList.remove('show');
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('admin-password').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                sessionStorage.setItem('isAdmin', 'true');
+                closeLoginModal();
+                document.getElementById('admin-panel').classList.add('active');
+                document.getElementById('admin-nav-btn').innerHTML = '<i class="fas fa-user-shield"></i><span>Админ</span>';
+                renderAdminReviews();
+                document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                document.getElementById('login-error').classList.add('show');
+            }
+        }
+
+        function logoutAdmin() {
+            isAdmin = false;
+            sessionStorage.removeItem('isAdmin');
+            document.getElementById('admin-panel').classList.remove('active');
+            document.getElementById('admin-nav-btn').innerHTML = '<i class="fas fa-lock"></i><span>Админ</span>';
+        }
+
+        // Мобильное меню
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('nav-links');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            navLinks.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+
+        // Закрываем меню при клике на ссылку
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('nav-links');
+                const menuIcon = document.getElementById('menu-icon');
+                
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                }
+            });
+        });
+
+        // Инициализация
+        if (isAdmin) {
+            document.getElementById('admin-nav-btn').innerHTML = '<i class="fas fa-user-shield"></i><span>Админ</span>';
+        }
+        renderReviews();
+    </script>
+</body>
+</html>
